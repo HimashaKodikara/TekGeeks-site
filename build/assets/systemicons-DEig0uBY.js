@@ -1,0 +1,1 @@
+import{l as o,u as n}from"./iconography-DtWKjKkE.js";document.addEventListener("DOMContentLoaded",function(){function c(){const e=document.getElementById("iconSetSelect"),t=document.getElementById("fillIcons");e.addEventListener("change",()=>{e.value,currentIconSet==="svg"&&n()}),t.addEventListener("change",()=>{t.checked,currentIconSet==="svg"&&n()})}c(),o("svg")});

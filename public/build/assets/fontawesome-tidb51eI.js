@@ -1,0 +1,1 @@
+import{l as e}from"./iconography-DtWKjKkE.js";document.addEventListener("DOMContentLoaded",()=>{document.getElementById("iconSetSelect").addEventListener("change",function(){e(this.value)}),e("fal")});

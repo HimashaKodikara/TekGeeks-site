@@ -1,0 +1,14 @@
+{
+    "login": "ඇතුල් වන්න",
+    "declaration_of_assets_and_liabilities": "වත්කම් සහ වගකීම් ප්‍රකාශ කිරීම",
+    "portal_introduction": "This secure portal allows government officials to submit their asset and liability declarations in a simple, reliable, and efficient manner. Upholding transparency and accountability for a corruption-free Sri Lanka.",
+    "start_your_delaration": "START YOUR DECLARATION",
+    "who_needs_to_fill_the_form": "Who needs to fill the form?",
+    "who_needs_to_fill_the_form_desc": "All individuals holding public office in Sri Lanka are required to submit an asset and liability declaration. This includes Members of Parliament, Provincial Councilors, Local Government Members, and senior public officers. Heads of government departments, corporations, boards, and statutory bodies are also obligated. Newly appointed officials must submit the declaration within three months of assuming office. The declaration ensures transparency, accountability, and compliance with the law under the CIABOC Act.",
+    "am_i_require_to_declare": "Am I Required to Declare?",
+
+    "VALIDATIONS": "Validations",
+    "Mobile Number (e.g. 0771234567)": "ජංගම දුරකථන අංකය (උදා: 0771234567)",
+    "validation.required": "මෙම ක්ෂේත්‍රය අවශ්‍යයි.",
+    "validation.mobile_pattern": "මුලින් 0 යන, ඉලක්කම් 10 ක් සහිත වලංගු අංකයක් ඇතුල් කරන්න (උදා: 0771234567)."
+}

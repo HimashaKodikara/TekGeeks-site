@@ -1,0 +1,12 @@
+import{S as i}from"./smartTables.bundle-Ds1daBi4.js";document.addEventListener("DOMContentLoaded",()=>{let s=[{data:"id",title:"ID"},{data:"name",title:"Name"},{data:"age",title:"Age"},{data:"salary",title:"Salary",render:function(t){let e=parseFloat(t);return isNaN(e)?"$0.00":"$"+e.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}},{data:"bonus",title:"Bonus",render:function(t){let e=parseFloat(t)||0,a="$"+e.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return e<3e3?`<span class="text-danger fw-bold">${a}</span>`:a}},{data:"performance",title:"Performance",render:function(t){let e=Math.min(Math.max(parseInt(t),1),100),a;return e<30?a="bg-danger":e>70?a="bg-success-700":e>=50&&e<=70?a="bg-success-500":a="bg-warning text-dark",'<div class="progress" style="height: 20px;"><div class="progress-bar '+a+'" role="progressbar" data-width="'+e+'" aria-valuenow="'+e+'" aria-valuemin="0" aria-valuemax="100" style="width: '+e+'%;">'+e+"%</div></div>"}},{data:"department",title:"Department"},{data:"hire_date",title:"Hired"},{data:"overtime_hours",title:"Overtime Hrs",render:function(t){let e=parseFloat(t)||0;const a=50;let r=Math.min(e/a*100,100);return`
+                    <div class="progress" style="height: 20px; width: 100%;">
+                        <div class="progress-bar ${e>40?"bg-danger":e>20?"bg-warning text-dark":"bg-success"}" 
+                             role="progressbar" 
+                             style="width: ${r}%;" 
+                             aria-valuenow="${e}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="${a}">
+                            ${e} hrs
+                        </div>
+                    </div>
+                `}},{data:"projects_completed",title:"Completed"},{data:"satisfaction_score",title:"Score",render:function(t){let e=parseFloat(t)||0;e=Math.min(Math.max(e,0),10);let a,r;return e<=2?(a="bg-danger-300",r="Poor"):e<=4?(a="bg-warning-300",r="Fair"):e<=6?(a="bg-success-400",r="Average"):e<=8?(a="bg-success-500",r="Good"):(a="bg-success-700",r="Excellent"),`<span class="badge ${a}">${r} (${e})</span>`}},{data:"remote_work_days",title:"Remote Work Days"},{data:"training_hours",title:"Training Hrs"},{data:"email",title:"Email"}];new i("demo-table",{data:{type:"ajax",source:"https://getwebora.com/smartadmin/json//mock-server.php?scenario=success",serverSide:!0,method:"GET",columns:s},perPage:10,debug:!0,responsive:{enabled:!0,breakpoint:768}})});

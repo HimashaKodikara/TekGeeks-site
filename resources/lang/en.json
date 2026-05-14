@@ -1,0 +1,38 @@
+{
+    "login": "LOGIN",
+    "Loading": "Loading",
+    "read_more": "Read More",
+    "declaration_of_assets_and_liabilities": "DECLARATION OF ASSETS AND LIABILITIES",
+    "portal_introduction": "This secure portal allows government officials to submit their asset and liability declarations in a simple, reliable, and efficient manner. Upholding transparency and accountability for a corruption-free Sri Lanka.",
+    "start_your_delaration": "START YOUR DECLARATION",
+    "declaration_requirement_checker": "Declaration Requirement Checker",
+    "declaration_requirement_checker_desc": "Please provide your details below to check if you are required to submit an asset and liability declaration.",
+    "institution": "Institution",
+    "designation": "Designation",
+    "check_now": "CHECK NOW",
+
+    "REGISTERPAGETRANS": "Register page Translations",
+    "description": "This secure online portal is designed to make your declaration process simple, reliable, and accessible from anywhere, with step-by-step guidance, built-in validations, multilingual support, and user-friendly navigation for timely and accurate submission.",
+    "declaration_profile_registration": "Declaration Profile Registration",
+    "declaration_profile_registration_desc": "Create your secure account to begin the asset declaration process quickly, safely, and efficiently",
+    "surname": "Surname",
+    "other_names": "Other Names",
+    "national_id_no": "National Identity Card No.",
+    "mobile_phone_number": "Mobile Phone Number",
+    "click_to_verify": "CLICK TO VERIFY",
+    "an_otp_sent_to_mobile_msg": "An OTP has been sent to your mobile number for verification.",
+    "expires_in": "Expires in",
+    "resend_otp": "Resend OTP",
+    "email_address": "E-mail Address",
+    "an_otp_sent_to_email_msg": "An OTP has been sent to your email address for verification.",
+    "next": "Next",
+
+    "VALIDATIONS": "Validations",
+    "Mobile Number (e.g. 0771234567)": "Mobile Number (e.g. 0771234567)",
+    "validation.required": "This field is required.",
+    "validation.mobile_pattern": "Enter a valid 10-digit mobile number starting with 0 (e.g. 0771234567).",
+    "nic_already_registered_message": "This NIC is already registered in the system. If you are not aware of this registration, please report it.",
+    "mobile_already_registered_message": "This mobile number is already registered. If this wasn’t you, please report it. Otherwise, go to login and use ‘Forgot Password’ to reset it.",
+    "validation.email": "Please enter a valid email address"
+
+}
