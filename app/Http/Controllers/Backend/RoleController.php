@@ -80,7 +80,7 @@ class RoleController extends Controller implements HasMiddleware
                 'name' => 'required|max:120|unique:roles,name',
                 'permission' => 'required|array',
                 'permission.*' => 'string|exists:permissions,name', // if you send names; use id if you send ids
-                'user_manual' => 'nullable|file|mimes:pdf', // 35MB
+                'user_manual' => 'nullable|file|mimes:pdf|max:10240', // 10MB
             ]);
 
             // Optional: your lowercase duplicate check (unique rule already handles it)
