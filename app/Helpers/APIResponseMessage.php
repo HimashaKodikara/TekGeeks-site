@@ -17,7 +17,7 @@ class APIResponseMessage
     const PW_RESET_EMAIL_SUCCESS = "Password reset email sent.";
     const USER_LOCKED = "User Account Locked. Please Contact Administrator, Thank you.";
     const USER_DELETED = "User Account Deleted.";
-    const INVALID_USER_NAME_PASSWORD = "Invalid email address.";
+    const INVALID_USER_NAME_EMAIL = "Invalid email address.";
     const INVALID_EMAIL = "Invalid email address.";
     const NO_DATA = 'Data fetched failed';
     const NO_DATA_FOUND = 'No data found near your location.';

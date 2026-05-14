@@ -2,29 +2,27 @@
 
 namespace App\Http\Controllers\Backend;
 
-
+use App\Http\Controllers\Controller;
+use App\Models\DynamicMenu;
 use DB;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Permission;
-use App\Models\DynamicMenu;
-use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
 use Spatie\Activitylog\Models\Activity as SpatieActivity;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Yajra\DataTables\Facades\DataTables;
 
 class RoleController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public static function middleware(): array
     {
@@ -36,15 +34,17 @@ class RoleController extends Controller implements HasMiddleware
             new Middleware('permission:roles-delete', only: ['destroy']),
         ];
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $data = Role::select('*');
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('edit', 'backend.roles.actionsBlock')
@@ -58,12 +58,12 @@ class RoleController extends Controller implements HasMiddleware
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
         $permission = Permission::get();
-        $dynamicMenu =  DynamicMenu::where('show_menu', 1)->orderBy('fOrder', 'ASC')->get();
+        $dynamicMenu = DynamicMenu::where('show_menu', 1)->orderBy('fOrder', 'ASC')->get();
 
         return view('backend.roles.index', compact('permission', 'dynamicMenu'));
     }
@@ -71,17 +71,16 @@ class RoleController extends Controller implements HasMiddleware
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-   public function store(Request $request)
+    public function store(Request $request)
     {
         try {
             $request->validate([
-                'name'           => 'required|max:120|unique:roles,name',
-                'permission'     => 'required|array',
-                'permission.*'   => 'string|exists:permissions,name', // if you send names; use id if you send ids
-                'user_manual'    => 'nullable|file|mimes:pdf|max:35840', // 35MB
+                'name' => 'required|max:120|unique:roles,name',
+                'permission' => 'required|array',
+                'permission.*' => 'string|exists:permissions,name', // if you send names; use id if you send ids
+                'user_manual' => 'nullable|file|mimes:pdf', // 35MB
             ]);
 
             // Optional: your lowercase duplicate check (unique rule already handles it)
@@ -122,9 +121,9 @@ class RoleController extends Controller implements HasMiddleware
                 }
             }
 
-            $role = new Role();
-            $role->name        = $request->name;
-            $role->guard_name  = 'web';
+            $role = new Role;
+            $role->name = $request->name;
+            $role->guard_name = 'web';
             // Store relative path ("usermanual/<file>"); easier to build URLs later
             $role->user_manual = $path;
             $role->save();
@@ -135,21 +134,21 @@ class RoleController extends Controller implements HasMiddleware
             // $perms = \Spatie\Permission\Models\Permission::whereIn('id', $request->input('permission'))->get();
             // $role->syncPermissions($perms);
 
-            $fieldsToLog = (new Role())->getFillable();
+            $fieldsToLog = (new Role)->getFillable();
 
-            $title = "Role";
+            $title = 'Role';
 
             // Optional custom message (global tap adds URL/IP/model_path automatically)
             activity()->performedOn($role)
-            ->causedBy(auth()->user())
-            ->event('created')
-            ->withProperties([
-                'attributes' => Arr::only($role->toArray(), $fieldsToLog),
-            ])
-            ->tap(function (SpatieActivity $activity) use ($title) {
-                $activity->title = $title;   // 👈 writes to the new column
-            })
-            ->log("New role {$role->name} created.");
+                ->causedBy(auth()->user())
+                ->event('created')
+                ->withProperties([
+                    'attributes' => Arr::only($role->toArray(), $fieldsToLog),
+                ])
+                ->tap(function (SpatieActivity $activity) use ($title) {
+                    $activity->title = $title;   // 👈 writes to the new column
+                })
+                ->log("New role {$role->name} created.");
 
             return redirect()->route('roles.roles-list')->with('success', 'Role created successfully');
 
@@ -163,17 +162,18 @@ class RoleController extends Controller implements HasMiddleware
                 ->withInput();
         }
     }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
         $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
-            ->where("role_has_permissions.role_id", $id)
+        $rolePermissions = Permission::join('role_has_permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
+            ->where('role_has_permissions.role_id', $id)
             ->get();
 
         return view('roles.show', compact('role', 'rolePermissions'));
@@ -183,19 +183,19 @@ class RoleController extends Controller implements HasMiddleware
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
 
-     /*
+    /*
     public function edit($id)
     {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
-            ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
-            ->all();
+       $role = Role::find($id);
+       $permission = Permission::get();
+       $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
+           ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
+           ->all();
 
-        return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
+       return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
     */
 
@@ -204,13 +204,14 @@ class RoleController extends Controller implements HasMiddleware
         $id = decrypt($id);
         $role = Role::find($id);
         $permission = Permission::get();
-        $dynamicMenu =  DynamicMenu::where('show_menu', 1)->orderBy('fOrder', 'ASC')->get();
+        $dynamicMenu = DynamicMenu::where('show_menu', 1)->orderBy('fOrder', 'ASC')->get();
 
         //         print_r($dynamicMenu);
         // die();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
+        $rolePermissions = DB::table('role_has_permissions')->where('role_has_permissions.role_id', $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
+
         //  var_dump($rolePermissions); exit();
         return view('backend.roles.edit', compact('role', 'permission', 'rolePermissions', 'dynamicMenu'));
     }
@@ -218,9 +219,8 @@ class RoleController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request)
     {
@@ -229,12 +229,11 @@ class RoleController extends Controller implements HasMiddleware
         try {
 
             $request->validate([
-                'name'           => 'required|max:120',
-                'permission'     => 'required|array',
-                'permission.*'   => 'string|exists:permissions,name', // if you send names; use id if you send ids
-                'user_manual'    => 'nullable|file|mimes:pdf|max:35840', // 35MB
+                'name' => 'required|max:120',
+                'permission' => 'required|array',
+                'permission.*' => 'string|exists:permissions,name', // if you send names; use id if you send ids
+                'user_manual' => 'nullable|file|mimes:pdf|max:35840', // 35MB
             ]);
-
 
             $role = Role::find($id);
 
@@ -242,7 +241,6 @@ class RoleController extends Controller implements HasMiddleware
             $role->guard_name = 'web';
 
             if ($request->hasFile('user_manual')) {
-
 
                 $file = $request->file('user_manual');
 
@@ -277,25 +275,23 @@ class RoleController extends Controller implements HasMiddleware
 
             $role->save();
 
-
             $role->syncPermissions($request->input('permission'));
 
+            $fieldsToLog = (new Role)->getFillable();
 
-            $fieldsToLog = (new Role())->getFillable();
-
-            $title = "Role";
+            $title = 'Role';
 
             // Optional custom message (global tap adds URL/IP/model_path automatically)
             activity()->performedOn($role)
-            ->causedBy(auth()->user())
-            ->event('created')
-            ->withProperties([
-                'attributes' => Arr::only($role->toArray(), $fieldsToLog),
-            ])
-            ->tap(function (SpatieActivity $activity) use ($title) {
-                $activity->title = $title;   // 👈 writes to the new column
-            })
-            ->log("Role record {$role->name} updated.");
+                ->causedBy(auth()->user())
+                ->event('created')
+                ->withProperties([
+                    'attributes' => Arr::only($role->toArray(), $fieldsToLog),
+                ])
+                ->tap(function (SpatieActivity $activity) use ($title) {
+                    $activity->title = $title;   // 👈 writes to the new column
+                })
+                ->log("Role record {$role->name} updated.");
 
             return redirect()->route('roles.roles-list')->with('success', 'Role updated successfully');
 
@@ -309,5 +305,4 @@ class RoleController extends Controller implements HasMiddleware
                 ->withInput();
         }
     }
-
 }
