@@ -84,5 +84,18 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('update', [RoleController::class, 'update'])->name('update');
         });
 
+        // Home project routes
+        Route::group([
+            'prefix' => 'home-projects',
+            'as' => 'home-project.',
+        ], function () {
+            Route::get('/', [HomeProjectController::class, 'index'])->name('index');
+            Route::post('/store', [HomeProjectController::class, 'store'])->name('store');
+            Route::get('/create', [HomeProjectController::class, 'create'])->name('create');
+            Route::get('/edit/{id}', [HomeProjectController::class, 'edit'])->name('edit');
+            Route::put('/update', [HomeProjectController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [HomeProjectController::class, 'destroy'])->name('delete');
+        });
+
     });
 });
