@@ -53,7 +53,6 @@ class AuthenticatedSessionController extends Controller
 
         // Update or create a new session record for the current session
         SessionModel::updateOrCreate(['user_id' => Auth::id()], ['session_id' => $currentSessionId]);
-        dd($request->all());
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
