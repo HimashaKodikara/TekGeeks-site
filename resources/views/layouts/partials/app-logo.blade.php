@@ -5,7 +5,7 @@
     {{-- <svg class="custom-logo">
         <use href="/img/app-logo.svg#custom-logo"></use>
     </svg> --}}
-    <img src="{{ asset('img/long_logo_w.svg') }}" alt="EADP Logo" style="height:100%; width:auto;">
+    <img src="{{ asset('img/logo-tek.png') }}" alt="EADP Logo" style="height:60%; width:auto;">
 
     <!-- Logo Backdrop Animation -->
     {{-- <div class="logo-backdrop">
