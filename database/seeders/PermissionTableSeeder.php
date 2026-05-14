@@ -16,8 +16,6 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
             'dashboard',
-            'institute-dashboard',
-            'admin-institute-dashboard',
             'users-list',
             'roles-list',
             'users-create',
@@ -27,43 +25,13 @@ class PermissionTableSeeder extends Seeder
             'roles-create',
             'roles-edit',
             'roles-delete',
-            'faq-list',
-            'faq-create',
-            'faq-edit',
-            'faq-status-update',
-            'nic-duplicate-records-list',
-            'nic-duplicate-records-view',
             'common-log',
         ];
 
-        $dynamicID = [
-            '1',
-            '2',
-            '3',
-            '151',
-            '152',
-            '151',
-            '151',
-            '151',
-            '151',
-            '152',
-            '152',
-            '152',
-            '11',
-            '11',
-            '11',
-            '11',
-            '21',
-            '21',
-
-            '60',
-        ];
-
-        for ($i = 0; $i < count($permissions); $i++) {
+        foreach ($permissions as $permission) {
             Permission::updateOrCreate(
-                ['name' => $permissions[$i]], // Match condition
+                ['name' => $permission],
                 [
-                    'dynamic_menu_id' => $dynamicID[$i],
                     'guard_name' => 'web',
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

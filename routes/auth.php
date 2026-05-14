@@ -11,11 +11,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\DeclarantDataManagement\ComplaintsController;
-use App\Http\Controllers\Backend\DeclarantDataManagement\NicDuplicateRecordsController;
 use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Backend\WebPortalManagement\FaqController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -40,7 +36,6 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [ForgotPasswordController::class, 'resetWithOtp'])
         ->name('password.store');
-
 
     Route::get('verify-password-otp', [ForgotPasswordController::class, 'showVerifyForm'])
         ->name('password.otp.verify');
@@ -75,7 +70,7 @@ Route::group(['middleware' => ['auth', 'check_last_activity']], function () {
         ->name('logout');
 });
 
-Route::group(['middleware' => ['auth', 'check_last_activity']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
     Route::prefix('adminpanel')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -89,7 +84,5 @@ Route::group(['middleware' => ['auth', 'check_last_activity']], function () {
             Route::put('update', [RoleController::class, 'update'])->name('update');
         });
 
-       
-    
     });
 });

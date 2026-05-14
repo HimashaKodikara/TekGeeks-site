@@ -4,7 +4,6 @@ use App\Http\Middleware\EnsureOtpSessionExists;
 use App\Http\Middleware\RequireApiKey;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\VerifyHmacSignature;
-use App\Http\Middleware\VerifySyncTokenMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,7 +18,6 @@ use App\Http\Middleware\SecurityHeaders;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
@@ -41,7 +39,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
             'api.key' => RequireApiKey::class,
-            'auth.sync' => VerifySyncTokenMiddleware::class,
             'EnsureOtpSessionExists' => EnsureOtpSessionExists::class,
             'verify.hmac' => VerifyHmacSignature::class,
             'check_last_activity' => CheckLastActivity::class,

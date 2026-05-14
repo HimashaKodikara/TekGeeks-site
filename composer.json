@@ -15,7 +15,6 @@
         "laravel/tinker": "^2.10.1",
         "mews/purifier": "^3.4",
         "predis/predis": "^3.4",
-        "quickfix/error-monitor": "dev-main",
         "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-permission": "^6.21",
         "spatie/simple-excel": "^3.9",

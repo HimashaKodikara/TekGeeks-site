@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->unsignedBigInteger('dynamic_menu_id')->after('name');
-            $table->foreign('dynamic_menu_id')->references('id')->on('dynamic_menus')->onDelete('cascade');
+            $table->foreignId('dynamic_menu_id')
+                ->nullable()
+                ->constrained('dynamic_menus')
+                ->nullOnDelete();
         });
     }
 
@@ -23,8 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->dropForeign(['dynamic_menu_id']);
-            $table->dropColumn('dynamic_menu_id');
+            //
         });
     }
 };
