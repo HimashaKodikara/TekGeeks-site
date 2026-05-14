@@ -1,29 +1,23 @@
-@extends('layouts.master')
+@extends('layouts.vertical')
 
-@section('title', 'Ambulance')
+@section('title', 'Home Projects')
 
 @section('content')
 <main id="js-page-content" role="main" class="page-content">
 
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-chart-area'></i> Ambulance <span class='fw-300'></span>
+            <i class='subheader-icon fal fa-chart-area'></i> Home Projects <span class='fw-300'></span>
         </h1>
 
         <div class="row" style="margin-left:auto; margin-right:auto; gap: 12px">
-            <a href=" {{ route('hospital-banner.show',encrypt(5)) }}">
-                <button type="button" class="btn btn-lg btn-info">
-                    <span class="mr-1 fal fa-plus"></span>
-                    Add Banner
-                </button>
-            </a>
-            <a href=" {{ route('ambulance.create') }}">
+            <a href=" {{ route('home-project.create') }}">
             <button type="button" class="btn btn-lg btn-primary">
                 <span class="mr-1 fal fa-plus"></span>
                 Add New
             </button>
             </a>
-            <a href=" {{ route('ambulance.index') }}">
+            <a href=" {{ route('home-project.index') }}">
             <button type="button" class="btn btn-lg btn-primary">
                 <span class="mr-1 fal fa-list"></span>
                 View All
@@ -36,7 +30,7 @@
             <div id="panel-1" class="panel">
                 <div class="panel-hdr">
                     <h2>
-                        ambulance <span class="fw-300"><i>list</i></span>
+                        Home Project <span class="fw-300"><i>list</i></span>
                     </h2>
                 </div>
                 <div class="panel-container show">
@@ -46,9 +40,9 @@
                             <thead>
                                 <th style="width: 5%;">#</th>
                                 <th style="width: 15%;">Name</th>
-                                <th style="width: 15%;">Contact No</th>
-                                <th style="width: 15%;">Edit</th>
+                                <th style="width: 20%;">Website</th>
                                 <th style="width: 10%;">Status</th>
+                                <th style="width: 10%;">Edit</th>
                                 <th style="width: 15%;">Delete</th>
                             </thead>
                             <tbody>
@@ -71,7 +65,7 @@
                 serverSide: true,
                 ordering: false,
                 ajax: {
-                    url: "{{ route('ambulance.get-ambulance') }}",
+                    url: "{{ route('home-project.get-home-projects') }}",
                     dataSrc: function(json) {
                         var searchTerm = table.search().toLowerCase();
 
@@ -102,27 +96,25 @@
                      width: '15%'
                 },
                 {
-                    data: 'contact_no',
-                    name: 'contact_no',
+                    data: 'website',
+                    name: 'website',
                     className: 'text-center',
                     orderable: false,
-                     width: '10%'
+                     width: '20%'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    className: 'text-center',
+                    orderable: false,
+                    width: '10%'
                 },
                 {
                     data: 'edit',
                     name: 'edit',
                     className: 'text-center',
                     orderable: false,
-                    searchable: false,
-                     width: '10%'
-                },
-                {
-                    data: 'activation',
-                    name: 'activation',
-                    className: 'text-center',
-                    orderable: false,
-                    searchable: false,
-                     width: '10%'
+                    width: '10%'
                 },
                 {
                     data: 'delete',

@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\HomeProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -94,6 +95,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/create', [HomeProjectController::class, 'create'])->name('create');
             Route::get('/edit/{id}', [HomeProjectController::class, 'edit'])->name('edit');
             Route::put('/update', [HomeProjectController::class, 'update'])->name('update');
+            Route::get('/get-home-projects', [HomeProjectController::class, 'getHomeProject'])->name('get-home-projects');
             Route::delete('/delete/{id}', [HomeProjectController::class, 'destroy'])->name('delete');
         });
 

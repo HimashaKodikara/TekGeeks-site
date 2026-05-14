@@ -15,17 +15,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
+use Yajra\DataTables\Facades\DataTables;
+
 class HomeProjectController extends Controller implements HasMiddleware
 {
 
     public static function middleware(): array
     {
         return [
-            new Middleware('permission:home-project-list|home-project-create|home-project-edit|home-project-delete', only: ['index', 'show']),
+            new Middleware('permission:home-project-list|home-project-create|home-project-edit|home-project-delete', only: ['index', 'show', 'getHomeProject']),
             new Middleware('permission:home-project-create', only: ['create', 'store']),
             new Middleware('permission:home-project-edit', only: ['edit', 'update']),
             new Middleware('permission:home-project-delete', only: ['destroy']),
         ];
+    }
+
+    public function getHomeProject()
+    {
+        $data = HomeProject::select('*');
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('edit', 'admin.homeproject.partials._delete')
+            ->addColumn('status', 'admin.homeproject.partials._status')
+            ->rawColumns(['edit', 'status'])
+            ->make(true);
     }
     /**
      * Display a listing of the resource.
@@ -82,11 +95,11 @@ class HomeProjectController extends Controller implements HasMiddleware
 
             DB::commit();
 
-            return redirect()-> route('homeproject.index')->with('success',APIResponseMessage:: CREATED);
+            return redirect()-> route('home-project.index')->with('success',APIResponseMessage:: CREATED);
 
         }catch(Exception $e){
             DB::rollBack();
-            return redirect()-> route('homeproject.index')->with('success',APIResponseMessage::FAIL);
+            return redirect()-> route('home-project.index')->with('success',APIResponseMessage::FAIL);
         }
     }
 
@@ -148,11 +161,11 @@ class HomeProjectController extends Controller implements HasMiddleware
 
             DB::commit();
 
-            return redirect()-> route('homeproject.index')->with('success',APIResponseMessage:: UPDATED);
+            return redirect()-> route('home-project.index')->with('success',APIResponseMessage:: UPDATED);
 
         }catch(Exception $e){
             DB::rollBack();
-            return redirect()-> route('homeproject.index')->with('error',APIResponseMessage:: FAIL);
+            return redirect()-> route('home-project.index')->with('error',APIResponseMessage:: FAIL);
         }
     }
 
@@ -171,11 +184,11 @@ class HomeProjectController extends Controller implements HasMiddleware
             DB::commit();
             Event:: dispatch(new LoggableEvent($homeproject, 'deleted'));
 
-            return redirect()-> route('homeproject.index')->with('success',APIResponseMessage:: SUCCESS);
+            return redirect()-> route('home-project.index')->with('success',APIResponseMessage:: SUCCESS);
         }
         catch(Exception $e){
             DB::rollBack();
-            return redirect()-> route('homeproject.index')->with('error',APIResponseMessage:: FAIL);
+            return redirect()-> route('home-project.index')->with('error',APIResponseMessage:: FAIL);
         }
     }
 }

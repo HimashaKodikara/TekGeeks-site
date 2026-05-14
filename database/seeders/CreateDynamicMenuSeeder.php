@@ -141,7 +141,7 @@ class CreateDynamicMenuSeeder extends Seeder
                 'icon' => '',
                 'title' => 'Home Projects',
                 'page_id' => 31,
-                'url' => 'adminpanel/home-projects-list',
+                'url' => 'adminpanel/home-projects',
                 'parent_id' => 30,
                 'is_parent' => 0,
                 'show_menu' => 1,

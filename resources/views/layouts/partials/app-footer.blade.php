@@ -1,6 +1,6 @@
 <footer class="app-footer">
     <div class="app-footer-content flex-grow-1">
-        CIABOC &copy;
+        TEKGEEKS &copy;
 
         <script>document.write(new Date().getFullYear());</script>.
 

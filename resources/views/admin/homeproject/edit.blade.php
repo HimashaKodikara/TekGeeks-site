@@ -1,24 +1,23 @@
-@extends('layouts.master')
+@extends('layouts.vertical')
 
-@section('title', 'Create Garage')
+@section('title', 'Edit Home Project')
 
 @section('content')
-    <!-- the #js-page-content id is needed for some plugins to initialize -->
     <main id="js-page-content" role="main" class="page-content">
 
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class='subheader-icon fal fa-chart-area'></i> Update Ambulance <span class='fw-300'></span>
+                <i class='subheader-icon fal fa-chart-area'></i> Edit Home Project <span class='fw-300'></span>
             </h1>
 
             <div class="row" style="margin-left:auto; margin-right:auto; gap: 12px">
-                <a href=" {{ route('ambulance.create') }}">
+                <a href=" {{ route('home-project.create') }}">
                     <button type="button" class="btn btn-lg btn-primary">
                         <span class="mr-1 fal fa-plus"></span>
                         Add New
                     </button>
                 </a>
-                <a href=" {{ route('ambulance.index') }}">
+                <a href=" {{ route('home-project.index') }}">
                     <button type="button" class="btn btn-lg btn-primary">
                         <span class="mr-1 fal fa-list"></span>
                         View All
@@ -32,102 +31,45 @@
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Update <span class="fw-300"><i>ambulance</i></span>
+                            Edit <span class="fw-300"><i>Home Project</i></span>
                         </h2>
-                        <div class="panel-toolbar">
-                            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
-                                data-offset="0,10" data-original-title="Collapse"></button>
-                            <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
-                                data-offset="0,10" data-original-title="Fullscreen"></button>
-                        </div>
                     </div>
                     <div class="panel-container show">
                         <div class="panel-content">
-
-                            <form action="{{ route('ambulance.update', $ambulance->id) }}" enctype="multipart/form-data"
+                            <form action="{{ route('home-project.update', $homeProject->id) }}" enctype="multipart/form-data"
                                 method="post" id="user-form" class="smart-form row" autocomplete="off"
                                 data-parsley-validate>
                                 @csrf
                                 @method('put')
-                                <div class="mb-3 col-6">
-                                    <label class="form-label" for="locationId">Location <span
-                                            style="color: red">*</span></label>
-                                    <select class="form-control select2" id="locationId" name="locationId" required>
-                                        <option value="" disabled {{ old('locationId') ? '' : 'selected' }}>Select
-                                            Location</option>
-                                        @if (isset($locations) && count($locations) > 0)
-                                            @foreach ($locations as $location)
-                                                <option value="{{ $location->id }}"
-                                                    @if (isset($ambulance) && $ambulance->location_id == $location->id) selected @endif>
-                                                    {{ $location->name }}
-                                                </option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <div class="invalid-feedback">Location is required, you missed this one.</div>
-                                    @error('locationId')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3 col-6">
-                                    <label class="form-label" for="ambulanceCategory">Ambulance Types <span
-                                            style="color: red">*</span></label>
-                                    <select class="form-control select2" id="ambulanceCategory" name="ambulanceCategory"
-                                        required>
-                                        <option value="" disabled {{ old('ambulanceCategory') ? '' : 'selected' }}>
-                                            Select Ambulance Types</option>
-                                        @if (isset($ambulanceCategories) && count($ambulanceCategories) > 0)
-                                            @foreach ($ambulanceCategories as $ambulanceCategory)
-                                                <option value="{{ $ambulanceCategory->id }}"
-                                                    @if (isset($ambulance) && $ambulance->ambulance_type_id == $ambulanceCategory->id) selected @endif>
-                                                    {{ $ambulanceCategory->name }}
-                                                </option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <div class="invalid-feedback">Police Station Types is required, you missed this one.
-                                    </div>
-                                    @error('ambulanceCategory')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3 col-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="simpleinput">Name <span
-                                                style="color: red">*</span></label>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name <span style="color: red">*</span></label>
                                         <input type="text" id="name" name="name" class="form-control"
-                                            autocomplete="off"
-                                            @if (isset($ambulance->name)) value="{{ $ambulance->name }}" @endif
-                                            required>
-                                        <div class="invalid-feedback">Name is required, you missed this one.</div>
+                                            autocomplete="off" value="{{ $homeProject->name }}" required>
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="mb-3 col-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="example-email-2">Contact No <span
-                                                style="color: red">*</span></label>
-                                        <input type="tel" id="contactNo" name="contactNo" class="form-control" pattern="[\d\s\-\+\(\)]{10,15}"
-                                            @if (isset($ambulance->contact_no)) value="{{ $ambulance->contact_no }}" @endif
-                                            required>
-                                        <div class="invalid-feedback">Contact no is required, you missed this one.</div>
-                                        @error('contactNo')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="website">Website</label>
+                                        <input type="text" id="website" name="website" class="form-control"
+                                            autocomplete="off" value="{{ $homeProject->website }}">
                                     </div>
                                 </div>
 
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="description">Description</label>
+                                        <textarea id="description" name="description" class="form-control">{{ $homeProject->description }}</textarea>
+                                    </div>
+                                </div>
 
                                 <div class="col-12">
-                                    <div
-                                        class="flex-row panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex">
-                                        <button id="js-submit-btn" class="ml-auto btn btn-primary" type="submit">Submit
-                                            form</button>
+                                    <div class="flex-row panel-content border-faded d-flex">
+                                        <button id="js-submit-btn" class="ml-auto btn btn-primary" type="submit">Update</button>
                                     </div>
                                 </div>
                             </form>
